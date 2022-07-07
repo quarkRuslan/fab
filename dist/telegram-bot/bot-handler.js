@@ -26,9 +26,11 @@ class BotHandler {
     initMessagesHandler(bot, httpRequest) {
         return __awaiter(this, void 0, void 0, function* () {
             bot.use((ctx, next) => {
-                const { from, date } = ctx.message;
-                const text = ctx.message.text || ' system notificaion ';
-                console.log(`${(0, bot_handler_contants_1.formatDate)(new Date(date * 1000))}  From user: ${from.first_name}. Message: ${text}`);
+                if (ctx.message.from && ctx.message.date) {
+                    const { from, date } = ctx.message;
+                    const text = ctx.message.text || ' system notification ';
+                    console.log(`${(0, bot_handler_contants_1.formatDate)(new Date(date * 1000))}  From user: ${from.first_name}. Message: ${text}`);
+                }
                 next();
             });
             bot.hears(bot_handler_contants_1.MenuActions.listen, (ctx) => {
